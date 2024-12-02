@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
+
 export function Header() {
   return (
-    <header className=" fixed top-0 right-0 bottom-0 left-0">
+    <header className="fixed top-0 right-0 bottom-0 left-0">
       <div className="border-gray-300 border-b">
         <div className="container mx-auto px-5 flex justify-between items-center h-16">
-          <a href="#">
+          <Link to="#">
             <svg
               width="128"
               height="14px"
@@ -17,12 +19,12 @@ export function Header() {
                 fill="black"
               ></path>
             </svg>
-          </a>
+          </Link>
 
           <div className="flex justify-between items-center gap-3 max-[340px]:gap-1">
-            <a
-              href="#"
-              className=" p-3 max-[340px]:p-2 flex justify-center items-center rounded-md transition-all duration-100 hover:bg-gray-200"
+            <Link
+              to="#"
+              className="p-3 max-[340px]:p-2 flex justify-center items-center rounded-md transition-all duration-100 hover:bg-gray-200"
             >
               <svg
                 width="16px"
@@ -38,9 +40,9 @@ export function Header() {
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="M21 21l-4.35-4.35"></path>
               </svg>
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="#"
               className="p-3 max-[340px]:p-2 flex justify-center items-center rounded-md transition-all duration-100 hover:bg-gray-200"
             >
               <svg
@@ -58,9 +60,9 @@ export function Header() {
                 <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
               </svg>
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="#"
               className="p-3 max-[340px]:p-2 flex justify-center items-center rounded-md transition-all duration-100 hover:bg-gray-200"
             >
               <svg
@@ -79,7 +81,7 @@ export function Header() {
                 <circle cx="20" cy="21" r="1"></circle>
                 <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -88,36 +90,36 @@ export function Header() {
         <nav className="py-5 flex justify-center container mx-auto px-5">
           <ul className="flex flex-wrap justify-center items-center gap-5">
             <li>
-              <a
-                href="#"
-                className=" text-lg p-2 rounded-md transition-all duration-300 hover:bg-gray-200"
+              <Link
+                to="#"
+                className="text-lg p-2 rounded-md transition-all duration-300 hover:bg-gray-200"
               >
                 Electronics
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                to="#"
                 className="text-lg p-2 rounded-md transition-all duration-300 hover:bg-gray-200"
               >
                 Jewelry
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                to="#"
                 className="text-lg p-2 rounded-md transition-all duration-300 hover:bg-gray-200"
               >
                 Men&apos;s clothing
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                to="#"
                 className="text-lg p-2 rounded-md transition-all duration-300 hover:bg-gray-200"
               >
                 Women&apos;s clothing
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
