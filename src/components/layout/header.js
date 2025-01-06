@@ -1,15 +1,27 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { HeaderMenu } from "./header-menu";
 
 export function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleNavbar = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeNavbar = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <header className="fixed top-0 right-0 bottom-0 left-0">
-      <div className="border-gray-300 border-b">
+    <header className="fixed top-0 right-0 left-0 bg-zinc-100">
+      <div className="border-gray-300 border-b z-10">
         <div className="container mx-auto px-5 flex justify-between items-center h-16">
-          <Link to="#">
+          <Link to="/" className="">
             <svg
-              width="128"
+              width="128px"
               height="14px"
-              className="styles_everlane-logo__wuaiF"
+              className="styles_everlane-logo__wuaiF max-[400px]:w-24"
               viewBox="0 0 128 14"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +33,7 @@ export function Header() {
             </svg>
           </Link>
 
-          <div className="flex justify-between items-center gap-3 max-[340px]:gap-1">
+          <div className="flex justify-between items-center gap-3 max-[400px]:gap-1">
             <Link
               to="#"
               className="p-3 max-[340px]:p-2 flex justify-center items-center rounded-md transition-all duration-100 hover:bg-gray-200"
@@ -82,48 +94,79 @@ export function Header() {
                 <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
               </svg>
             </Link>
+            <button
+              className="hidden hover:bg-gray-200 max-[1024px]:flex justify-center items-center rounded-md transition-all duration-100"
+              onClick={toggleNavbar}
+            >
+              {isOpen ? (
+                <span className="p-[9.5px]">
+                  <svg
+                    width="21px"
+                    height="21px"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="x_svg__feather x_svg__feather-x everlane-icon"
+                  >
+                    <path d="M18 6L6 18M6 6l12 12"></path>
+                  </svg>
+                </span>
+              ) : (
+                <svg
+                  width="40"
+                  height="41"
+                  viewBox="0 0 40 41"
+                  fill="none"
+                  className="hamburger"
+                >
+                  <path
+                    d="M14 20.5H26"
+                    stroke="#161912"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>
+                  <path
+                    d="M14 16.5H26"
+                    stroke="#161912"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>
+                  <path
+                    d="M14 24.5H26"
+                    stroke="#161912"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>
+                </svg>
+              )}
+            </button>
           </div>
         </div>
       </div>
 
-      <div className="border-gray-300 border-b">
-        <nav className="py-5 flex justify-center container mx-auto px-5">
+      <div className="bg-zinc-100 border-b max-[1024px]:hidden">
+        <nav className="flex justify-center container mx-auto">
           <ul className="flex flex-wrap justify-center items-center gap-5">
-            <li>
-              <Link
-                to="#"
-                className="text-lg p-2 rounded-md transition-all duration-300 hover:bg-gray-200"
-              >
-                Electronics
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="#"
-                className="text-lg p-2 rounded-md transition-all duration-300 hover:bg-gray-200"
-              >
-                Jewelry
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="#"
-                className="text-lg p-2 rounded-md transition-all duration-300 hover:bg-gray-200"
-              >
-                Men&apos;s clothing
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="#"
-                className="text-lg p-2 rounded-md transition-all duration-300 hover:bg-gray-200"
-              >
-                Women&apos;s clothing
-              </Link>
-            </li>
+            <HeaderMenu />
           </ul>
         </nav>
       </div>
+
+      {isOpen ? (
+        <ul className="bg-zinc-100 -z-10 h-screen w-2/3 flex flex-col items-end gap-5 transition-all duration-500 absolute right-0 top-16 bottom-0 p-3">
+          <HeaderMenu onMenuItemClick={closeNavbar} />
+        </ul>
+      ) : (
+        <ul className="bg-zinc-100 -z-10 h-screen w-2/3 flex flex-col items-end gap-5 transition-all duration-500 absolute top-16 bottom-0 p-3 -right-full">
+          <HeaderMenu onMenuItemClick={closeNavbar} />
+        </ul>
+      )}
     </header>
   );
 }
