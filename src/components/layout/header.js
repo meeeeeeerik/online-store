@@ -70,15 +70,15 @@ export function Header() {
         </nav>
       </div>
 
-      {isOpen ? (
-        <ul className="bg-zinc-100 -z-10 h-screen w-2/3 flex flex-col items-end gap-5 transition-all duration-500 absolute right-0 top-16 bottom-0 p-3">
-          <HeaderMenu onMenuItemClick={closeNavbar} />
-        </ul>
-      ) : (
-        <ul className="bg-zinc-100 -z-10 h-screen w-2/3 flex flex-col items-end gap-5 transition-all duration-500 absolute top-16 bottom-0 p-3 -right-full">
-          <HeaderMenu onMenuItemClick={closeNavbar} />
-        </ul>
-      )}
+      <ul
+        className={`
+    bg-zinc-100 -z-10 h-screen w-2/3 flex flex-col items-end gap-5 
+    transition-all duration-500 absolute top-16 bottom-0 p-3 
+    ${isOpen ? "right-0" : "-right-full"}
+  `}
+      >
+        <HeaderMenu onMenuItemClick={closeNavbar} />
+      </ul>
     </header>
   );
 }
