@@ -1,0 +1,29 @@
+<svg
+                  width="40"
+                  height="41"
+                  viewBox="0 0 40 41"
+                  fill="none"
+                  className="hamburger"
+                >
+                  <path
+                    d="M14 20.5H26"
+                    stroke="#161912"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>
+                  <path
+                    d="M14 16.5H26"
+                    stroke="#161912"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>
+                  <path
+                    d="M14 24.5H26"
+                    stroke="#161912"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>
+                </svg>

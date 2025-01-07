@@ -1,46 +1,23 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import starIcon from "./star-icon.svg";
 import { Button } from "../ui/button";
 import { Loader } from "../ui/loader";
+import { useFetchCategories } from "../hooks/useFetchCategories";
+import { useParams } from "react-router-dom";
 
 export function CategoryPage() {
-  const [categories, setCategories] = useState([]);
   const params = useParams();
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    const fetchCategories = async () => {
-      try {
-        const res = await fetch(
-          `https://fakestoreapi.com/products/category/${params.category}`
-        );
-        if (!res.ok) {
-          throw new Error("Failed to fetch categories");
-        }
-        const data = await res.json();
-        setCategories(data);
-      } catch (err) {
-        console.log("err", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchCategories();
-  }, [params.category]);
+  const { categories, isLoading } = useFetchCategories();
 
   if (isLoading || !categories) {
     return <Loader />;
   }
 
   return (
-    <div className="container mx-auto px-5 mt-40 max-[1024px]:mt-28 mb-10">
-      <h2 className="text-center text-3xl mb-10 max-[1024px]:text-2xl">
+    <div className="container mx-auto px-5 mt-40 max-lg:mt-28 mb-10">
+      <h2 className="text-center text-3xl mb-10 max-lg:text-2xl">
         {params.category[0].toUpperCase() + params.category.slice(1)}
       </h2>
-      <div className="max-[500px]:grid-cols-1 max-[786px]:grid-cols-2 max-[1024px]:grid-cols-3 max-[1280px]:grid-cols-4 grid grid-cols-5 gap-10 items-start">
+      <div className="max-[500px]:grid-cols-1 max-md:grid-cols-2 max-lg:grid-cols-3 max-xl:grid-cols-4 grid grid-cols-5 gap-10 items-start">
         {categories.map((category) => {
           return (
             <div

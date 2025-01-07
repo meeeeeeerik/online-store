@@ -1,38 +1,21 @@
-import { useEffect, useState } from "react";
 import starIcon from "./star-icon.svg";
 import { Button } from "../ui/button";
 import { Loader } from "../ui/loader";
+import { useFetchProducts } from "../hooks/useFetchProducts";
 
 export function MainPage() {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    const fetchCategories = async () => {
-      try {
-        const res = await fetch(`https://fakestoreapi.com/products`);
-        const data = await res.json();
-        setProducts(data);
-      } catch (err) {
-        console.log("err", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchCategories();
-  }, []);
+  const { products, isLoading } = useFetchProducts();
 
   if (isLoading || !products) {
     return <Loader />;
   }
 
   return (
-    <div className="container mx-auto px-5 mt-40 mb-10 max-[1024px]:mt-28">
-      <h2 className="text-center text-3xl mb-10 max-[1024px]:text-2xl">
+    <div className="container mx-auto px-5 mt-40 mb-10 max-lg:mt-28">
+      <h2 className="text-center text-3xl mb-10 max-lg:text-2xl">
         All products
       </h2>
-      <div className="max-[500px]:grid-cols-1 max-[786px]:grid-cols-2 max-[1024px]:grid-cols-3 max-[1280px]:grid-cols-4 grid grid-cols-5 gap-10 items-start">
+      <div className="max-[500px]:grid-cols-1 max-md:grid-cols-2 max-lg:grid-cols-3 max-xl:grid-cols-4 grid grid-cols-5 gap-10 items-start">
         {products.map((product) => {
           return (
             <div

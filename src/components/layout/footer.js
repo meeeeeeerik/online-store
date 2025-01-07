@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { ReactComponent as Facebook } from "../layout/icon-facebook.svg";
-import { ReactComponent as Instagram } from "../layout/icon-instagram.svg";
-import { ReactComponent as Github } from "../layout/icon-github.svg";
-import { ReactComponent as Tg } from "../layout/icon-telegram.svg";
+import { ReactComponent as Facebook } from "../../ui/svg/icon-facebook.svg";
+import { ReactComponent as Instagram } from "../../ui/svg/icon-instagram.svg";
+import { ReactComponent as Github } from "../../ui/svg/icon-github.svg";
+import { ReactComponent as Tg } from "../../ui/svg/icon-telegram.svg";
 
 export function Footer() {
   return (
@@ -12,25 +12,25 @@ export function Footer() {
         <ul className="flex items-center justify-center gap-4 mb-5">
           <li className="hover:scale-125 transition-all duration-300">
             <Link
-              to={"https://www.facebook.com/profile.php?id=100053358588555"}
+              to="https://www.facebook.com/profile.php?id=100053358588555"
               target="_blank"
             >
-              <Facebook className="w-12 h-12 max-[786px]:w-10 max-[786px]:h-10" />
+              <Facebook className="w-12 h-12 max-md:w-10 max-md:h-10" />
             </Link>
           </li>
           <li className="hover:scale-125 transition-all duration-300">
-            <Link to={"https://t.me/meeeeeeerik"} target="_blank">
-              <Tg className="w-12 h-12 max-[786px]:w-10 max-[786px]:h-10" />
+            <Link to="https://t.me/meeeeeeerik" target="_blank">
+              <Tg className="w-12 h-12 max-md:w-10 max-md:h-10" />
             </Link>
           </li>
           <li className="hover:scale-125 transition-all duration-300">
-            <Link to={"https://github.com/meeeeeeerik"} target="_blank">
-              <Github className="w-12 h-12 max-[786px]:w-10 max-[786px]:h-10" />
+            <Link to="https://github.com/meeeeeeerik" target="_blank">
+              <Github className="w-12 h-12 max-md:w-10 max-md:h-10" />
             </Link>
           </li>
           <li className="hover:scale-125 transition-all duration-300">
-            <Link to={"https://www.instagram.com/meeeeeeerik/"} target="_blank">
-              <Instagram className="w-12 h-12 max-[786px]:w-10 max-[786px]:h-10" />
+            <Link to="https://www.instagram.com/meeeeeeerik/" target="_blank">
+              <Instagram className="w-12 h-12 max-md:w-10 max-md:h-10" />
             </Link>
           </li>
         </ul>

@@ -24,14 +24,14 @@ export function HeaderMenu({ onMenuItemClick }) {
   }, []);
 
   if (isLoading || !categories) {
-    return <p className="hidden"></p>;
+    return null;
   }
 
   return categories.map((category) => (
     <li key={category} className="p-5 max-[400px]:p-3">
       <NavLink
         onClick={onMenuItemClick}
-        to={`products/category/${category}`}
+        to={`products/${category}`}
         className="p-2 text-lg rounded-md transition-all duration-300 hover:bg-gray-200 max-[350px]:text-base"
       >
         {category[0].toUpperCase() + category.slice(1)}
