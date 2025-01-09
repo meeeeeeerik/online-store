@@ -1,7 +1,7 @@
 import starIcon from "./star-icon.svg";
-import { Button } from "../ui/button";
-import { Loader } from "../ui/loader";
-import { useFetchCategories } from "../hooks/useFetchCategories";
+import { Button } from "@/ui/button";
+import { Loader } from "@/ui/loader";
+import { useFetchCategories } from "@/hooks/useFetchCategories";
 import { useParams } from "react-router-dom";
 
 export function CategoryPage() {

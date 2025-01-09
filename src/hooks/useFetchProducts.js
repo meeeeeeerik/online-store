@@ -9,6 +9,9 @@ export function useFetchProducts() {
     const fetchProducts = async () => {
       try {
         const res = await fetch(`https://fakestoreapi.com/products`);
+        if (!res.ok) {
+          throw new Error("Failed to fetch products");
+        }
         const data = await res.json();
         setProducts(data);
       } catch (err) {

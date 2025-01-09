@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { ReactComponent as Facebook } from "../../ui/svg/icon-facebook.svg";
-import { ReactComponent as Instagram } from "../../ui/svg/icon-instagram.svg";
-import { ReactComponent as Github } from "../../ui/svg/icon-github.svg";
-import { ReactComponent as Tg } from "../../ui/svg/icon-telegram.svg";
+import { ReactComponent as Facebook } from "@/ui/svg/icon-facebook.svg";
+import { ReactComponent as Instagram } from "@/ui/svg/icon-instagram.svg";
+import { ReactComponent as Github } from "@/ui/svg/icon-github.svg";
+import { ReactComponent as Tg } from "@/ui/svg/icon-telegram.svg";
 
 export function Footer() {
   return (

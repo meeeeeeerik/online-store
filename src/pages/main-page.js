@@ -1,7 +1,7 @@
 import starIcon from "./star-icon.svg";
-import { Button } from "../ui/button";
-import { Loader } from "../ui/loader";
-import { useFetchProducts } from "../hooks/useFetchProducts";
+import { Button } from "@/ui/button";
+import { Loader } from "@/ui/loader";
+import { useFetchProducts } from "@/hooks/useFetchProducts";
 
 export function MainPage() {
   const { products, isLoading } = useFetchProducts();

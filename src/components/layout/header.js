@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HeaderMenu } from "./header-menu";
-import { ReactComponent as Logo } from "../../ui/svg/logo.svg";
-import { ReactComponent as SearchIcon } from "../../ui/svg/icon-search.svg";
-import { ReactComponent as ProfileIcon } from "../../ui/svg/icon-profile.svg";
-import { ReactComponent as CartIcon } from "../../ui/svg/icon-cart.svg";
-import { ReactComponent as CloseIcon } from "../../ui/svg/icon-close.svg";
-import { ReactComponent as BurgerMenuIcon } from "../../ui/svg/icon-burger-menu.svg";
+import { ReactComponent as Logo } from "@/ui/svg/logo.svg";
+import { ReactComponent as SearchIcon } from "@/ui/svg/icon-search.svg";
+import { ReactComponent as ProfileIcon } from "@/ui/svg/icon-profile.svg";
+import { ReactComponent as CartIcon } from "@/ui/svg/icon-cart.svg";
+import { ReactComponent as CloseIcon } from "@/ui/svg/icon-close.svg";
+import { ReactComponent as BurgerMenuIcon } from "@/ui/svg/icon-burger-menu.svg";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);

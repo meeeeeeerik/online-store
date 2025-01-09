@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useFetchCategoriesTitles } from "../../hooks/useFetchCategoriesTitles";
+import { useFetchCategoriesTitles } from "@/hooks/useFetchCategoriesTitles";
 
 export function HeaderMenu({ onMenuItemClick }) {
   const { categoriesTitles, isLoading } = useFetchCategoriesTitles();

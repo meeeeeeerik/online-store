@@ -18,7 +18,17 @@
   },
   "plugins": ["react", "react-hooks"],
   "rules": {
-    //add customize rules here as per your project's needs
     "react/prop-types": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@", "./src"],
+          ["@/hooks", "./src/hooks"]
+        ],
+        "extensions": [".ts", ".js", ".jsx", ".json"]
+      }
+    }
   }
 }
