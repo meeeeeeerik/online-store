@@ -1,4 +1,4 @@
-import starIcon from "./star-icon.svg";
+import { ReactComponent as StarIcon } from "@/ui/svg/icon-star.svg";
 import { Button } from "@/ui/button";
 import { Loader } from "@/ui/loader";
 import { useFetchProducts } from "@/hooks/useFetchProducts";
@@ -36,7 +36,7 @@ export function MainPage() {
                 <div className="mb-2 font-bold">{product.price}$</div>
                 <div className="flex items-center gap-5 mb-5">
                   <div className="flex items-center gap-2">
-                    <img src={starIcon} />
+                    <StarIcon className="w-5 h-5" />
                     <div className="text-blue-400">{product.rating.rate}</div>
                   </div>
                 </div>

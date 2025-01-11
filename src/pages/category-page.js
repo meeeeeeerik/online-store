@@ -1,8 +1,8 @@
-import starIcon from "./star-icon.svg";
 import { Button } from "@/ui/button";
 import { Loader } from "@/ui/loader";
 import { useFetchCategories } from "@/hooks/useFetchCategories";
 import { useParams } from "react-router-dom";
+import { ReactComponent as StarIcon } from "@/ui/svg/icon-star.svg";
 
 export function CategoryPage() {
   const params = useParams();
@@ -38,7 +38,7 @@ export function CategoryPage() {
                 <div className="mb-2 font-bold">{category.price}$</div>
                 <div className="flex items-center gap-5 mb-5">
                   <div className="flex items-center gap-2">
-                    <img src={starIcon} />
+                    <StarIcon className="w-5 h-5" />
                     <div className="text-blue-400">{category.rating.rate}</div>
                   </div>
                 </div>

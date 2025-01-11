@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { HeaderMenu } from "./header-menu";
+import { HeaderMenu } from "./header-menu.js";
 import { ReactComponent as Logo } from "@/ui/svg/logo.svg";
 import { ReactComponent as SearchIcon } from "@/ui/svg/icon-search.svg";
 import { ReactComponent as ProfileIcon } from "@/ui/svg/icon-profile.svg";

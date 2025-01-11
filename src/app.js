@@ -1,8 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { CategoryPage } from "./pages/category-page";
-import { MainPage } from "./pages/main-page";
-import { Footer } from "./components/layout/footer";
-import { Header } from "./components/layout/header";
+import { CategoryPage } from "./pages/category-page.js";
+import { MainPage } from "./pages/main-page.js";
+import { Footer } from "./components/layout/footer.js";
+import { Header } from "./components/layout/header.js";
 
 export function App() {
   return (
