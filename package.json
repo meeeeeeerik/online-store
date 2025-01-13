@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "online-store",
   "version": "0.1.0",
   "private": true,
@@ -6,22 +7,28 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "fix-path": "^3.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^7.0.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "craco start",
+    "build": "craco build",
+    "eject": "react-scripts eject",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!your-module-name)/\""
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
     ]
+  },
+  "resolutions": {
+    "wrap-ansi": "7.0.0",
+    "string-width": "4.1.0"
   },
   "browserslist": {
     "production": [
@@ -36,9 +43,21 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/register": "^7.25.9",
+    "@craco/craco": "^7.1.0",
+    "babel-loader": "^9.2.1",
     "eslint": "^8.57.1",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "tailwindcss": "^3.4.15"
+  },
+  "browser": {
+    "uuid": "./node_modules/uuid/dist/esm-browser/index.js"
   }
 }
