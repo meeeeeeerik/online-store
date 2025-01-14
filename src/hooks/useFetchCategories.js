@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 export function useFetchCategories() {
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const params = useParams();
 
   useEffect(() => {
@@ -18,8 +19,8 @@ export function useFetchCategories() {
         }
         const data = await res.json();
         setCategories(data);
-      } catch (err) {
-        console.log("err", err);
+      } catch (error) {
+        setError(error?.message || "Something went wrong");
       } finally {
         setIsLoading(false);
       }
@@ -28,5 +29,5 @@ export function useFetchCategories() {
     fetchCategories();
   }, [params.category]);
 
-  return { categories, isLoading };
+  return { categories, isLoading, error };
 }

@@ -15,22 +15,22 @@ export function Footer() {
               to="https://www.facebook.com/profile.php?id=100053358588555"
               target="_blank"
             >
-              <Facebook className="w-12 h-12 max-md:w-10 max-md:h-10" />
+              <Facebook className="w-10 h-10 max-md:w-8 max-md:h-8" />
             </Link>
           </li>
           <li className="hover:scale-125 transition-all duration-300">
             <Link to="https://t.me/meeeeeeerik" target="_blank">
-              <Tg className="w-12 h-12 max-md:w-10 max-md:h-10" />
+              <Tg className="w-10 h-10 max-md:w-8 max-md:h-8" />
             </Link>
           </li>
           <li className="hover:scale-125 transition-all duration-300">
             <Link to="https://github.com/meeeeeeerik" target="_blank">
-              <Github className="w-12 h-12 max-md:w-10 max-md:h-10" />
+              <Github className="w-10 h-10 max-md:w-8 max-md:h-8" />
             </Link>
           </li>
           <li className="hover:scale-125 transition-all duration-300">
             <Link to="https://www.instagram.com/meeeeeeerik/" target="_blank">
-              <Instagram className="w-12 h-12 max-md:w-10 max-md:h-10" />
+              <Instagram className="w-10 h-10 max-md:w-8 max-md:h-8" />
             </Link>
           </li>
         </ul>

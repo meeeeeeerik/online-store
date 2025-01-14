@@ -16,6 +16,7 @@
       "jsx": true
     }
   },
+  "parser": "@babel/eslint-parser",
   "plugins": ["react", "react-hooks"],
   "rules": {
     "react/prop-types": "off"

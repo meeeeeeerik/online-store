@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { HeaderMenu } from "./header-menu.js";
+import { Link, NavLink } from "react-router-dom";
 import { ReactComponent as Logo } from "@/ui/svg/logo.svg";
 import { ReactComponent as SearchIcon } from "@/ui/svg/icon-search.svg";
 import { ReactComponent as ProfileIcon } from "@/ui/svg/icon-profile.svg";
 import { ReactComponent as CartIcon } from "@/ui/svg/icon-cart.svg";
 import { ReactComponent as CloseIcon } from "@/ui/svg/icon-close.svg";
 import { ReactComponent as BurgerMenuIcon } from "@/ui/svg/icon-burger-menu.svg";
+import { Error } from "@/ui/error.js";
 
-export function Header() {
+export function Header({ categoriesTitles, isLoading, error }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {
@@ -18,6 +18,14 @@ export function Header() {
   const closeNavbar = () => {
     setIsOpen(false);
   };
+
+  if (error) {
+    return <Error error={error} />;
+  }
+
+  if (isLoading || !categoriesTitles) {
+    return null;
+  }
 
   return (
     <header className="fixed top-0 right-0 left-0 bg-zinc-100">
@@ -65,7 +73,16 @@ export function Header() {
       <div className="bg-zinc-100 border-b max-lg:hidden">
         <nav className="flex justify-center container mx-auto">
           <ul className="flex flex-wrap justify-center items-center gap-5">
-            <HeaderMenu />
+            {categoriesTitles.map((categoryTitle) => (
+              <li key={categoryTitle} className="p-5 max-[400px]:p-3">
+                <NavLink
+                  to={`products/${categoryTitle}`}
+                  className="p-2 text-lg rounded-md transition-all duration-300 hover:bg-gray-200 max-[350px]:text-base"
+                >
+                  {categoryTitle[0].toUpperCase() + categoryTitle.slice(1)}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>
@@ -77,7 +94,17 @@ export function Header() {
     ${isOpen ? "right-0" : "-right-full"}
   `}
       >
-        <HeaderMenu onMenuItemClick={closeNavbar} />
+        {categoriesTitles.map((categoryTitle) => (
+          <li key={categoryTitle} className="p-5 max-[400px]:p-3">
+            <NavLink
+              onClick={closeNavbar}
+              to={`products/${categoryTitle}`}
+              className="p-2 text-lg rounded-md transition-all duration-300 hover:bg-gray-200 max-[350px]:text-base"
+            >
+              {categoryTitle[0].toUpperCase() + categoryTitle.slice(1)}
+            </NavLink>
+          </li>
+        ))}
       </ul>
     </header>
   );

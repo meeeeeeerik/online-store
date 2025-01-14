@@ -2,31 +2,55 @@ import { ReactComponent as StarIcon } from "@/ui/svg/icon-star.svg";
 import { Button } from "@/ui/button";
 import { Loader } from "@/ui/loader";
 import { useFetchProducts } from "@/hooks/useFetchProducts";
+import { Error } from "@/ui/error";
+import { useState } from "react";
 
 export function MainPage() {
-  const { products, isLoading } = useFetchProducts();
+  const { products, isLoading, error } = useFetchProducts();
+  const [imageLoadingStates, setImageLoadingStates] = useState({});
+
+  if (error) {
+    return <Error error={error} />;
+  }
 
   if (isLoading || !products) {
     return <Loader />;
   }
 
+  const handleImageLoad = (id) => {
+    setImageLoadingStates((prev) => ({ ...prev, [id]: false }));
+  };
+
+  const handleImageError = (id) => {
+    setImageLoadingStates((prev) => ({ ...prev, [id]: false }));
+  };
+
   return (
     <div className="container mx-auto px-5 mt-40 mb-10 max-lg:mt-28">
       <h2 className="text-center text-3xl mb-10 max-lg:text-2xl">
-        All products
+        Все продукты
       </h2>
       <div className="max-[500px]:grid-cols-1 max-md:grid-cols-2 max-lg:grid-cols-3 max-xl:grid-cols-4 grid grid-cols-5 gap-10 items-start">
         {products.map((product) => {
+          const isImageLoading = imageLoadingStates[product.id] !== false;
+
           return (
             <div
               key={product.id}
               className="w-[200px] p-2 border-2 justify-self-center"
             >
               <div className="mb-4">
+                {isImageLoading && (
+                  <div className="w-full h-40 bg-zinc-100 rounded-md"></div>
+                )}
                 <img
-                  className="w-full h-40 justify-self-center object-contain"
+                  className={`w-full h-40 justify-self-center object-contain ${
+                    isImageLoading ? "hidden" : "block"
+                  }`}
                   src={product.image}
                   alt={product.title}
+                  onLoad={() => handleImageLoad(product.id)}
+                  onError={() => handleImageError(product.id)} // Обработка ошибок
                 />
               </div>
               <div>
