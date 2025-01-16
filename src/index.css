@@ -6,21 +6,30 @@
   @apply underline;
 }
 
-.cards-wrapper {
+.card {
   @apply max-lg:w-44 w-[200px] p-2 border-2 justify-self-center;
   @media (max-width: 400px) {
     width: 140px;
   }
 }
 
+.LazyLoad {
+  opacity: 0;
+  transition: all 1s ease-in-out;
+}
+
+.is-visible {
+  opacity: 1;
+}
+
 .loader {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: radial-gradient(farthest-side, #000000 94%, #0000) top/9px 9px
+  background: radial-gradient(farthest-side, #000000 94%, #0000) top/7px 7px
       no-repeat,
     conic-gradient(#0000 30%, #000000);
-  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 9px), #000 0);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 7px), #000 0);
   animation: spinner-c7wet2 1s infinite linear;
 }
 

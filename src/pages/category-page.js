@@ -5,6 +5,7 @@ import { useFetchCategories } from "@/hooks/useFetchCategories";
 import { useParams } from "react-router-dom";
 import { ReactComponent as StarIcon } from "@/ui/svg/icon-star.svg";
 import { useState } from "react";
+import LazyLoad from "react-lazy-load";
 
 export function CategoryPage() {
   const params = useParams();
@@ -37,35 +38,44 @@ export function CategoryPage() {
           const isImageLoading = imageLoadingStates[category.id] !== false;
 
           return (
-            <div key={category.id} className="cards-wrapper">
-              <div className="mb-4">
-                {isImageLoading && (
-                  <div className="w-full h-40 bg-zinc-100 rounded-md"></div>
-                )}
-                <img
-                  className={`w-full h-40 justify-self-center object-contain ${
-                    isImageLoading ? "hidden" : "block"
-                  }`}
-                  src={category.image}
-                  alt={category.title}
-                  onLoad={() => handleImageLoad(category.id)}
-                  onError={() => handleImageError(category.id)} // Обработка ошибок
-                />
-              </div>
-              <div>
-                <div className="line-clamp-2 mb-2 h-12 text-base">
-                  {category.title}
+            <LazyLoad
+              key={category.id}
+              height={370}
+              offset={100}
+              placeholder={<Loader />}
+            >
+              <div className="card">
+                <div className="mb-4">
+                  {isImageLoading && (
+                    <div className="w-full h-40 bg-zinc-100 rounded-md"></div>
+                  )}
+                  <img
+                    className={`w-full h-40 justify-self-center object-contain ${
+                      isImageLoading ? "hidden" : "block"
+                    }`}
+                    src={category.image}
+                    alt={category.title}
+                    onLoad={() => handleImageLoad(category.id)}
+                    onError={() => handleImageError(category.id)} // Обработка ошибок
+                  />
                 </div>
-                <div className="mb-2 font-bold">{category.price}$</div>
-                <div className="flex items-center gap-5 mb-5">
-                  <div className="flex items-center gap-2">
-                    <StarIcon className="w-5 h-5" />
-                    <div className="text-blue-400">{category.rating.rate}</div>
+                <div>
+                  <div className="line-clamp-2 mb-2 h-12 text-base">
+                    {category.title}
                   </div>
+                  <div className="mb-2 font-bold">{category.price}$</div>
+                  <div className="flex items-center gap-5 mb-5">
+                    <div className="flex items-center gap-2">
+                      <StarIcon className="w-5 h-5" />
+                      <div className="text-blue-400">
+                        {category.rating.rate}
+                      </div>
+                    </div>
+                  </div>
+                  <Button />
                 </div>
-                <Button />
               </div>
-            </div>
+            </LazyLoad>
           );
         })}
       </div>

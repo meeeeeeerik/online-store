@@ -4,6 +4,7 @@ import { Loader } from "@/ui/loader";
 import { useFetchProducts } from "@/hooks/useFetchProducts";
 import { Error } from "@/ui/error";
 import { useState } from "react";
+import LazyLoad from "react-lazy-load";
 
 export function MainPage() {
   const { products, isLoading, error } = useFetchProducts();
@@ -30,42 +31,49 @@ export function MainPage() {
       <h2 className="text-center text-3xl mb-10 max-lg:text-2xl">
         All products
       </h2>
-      <div className="max-md:grid-cols-2 max-lg:grid-cols-3 max-xl:grid-cols-4 grid grid-cols-5 gap-10 max-[500]:gap-5 items-start">
+      <div className="grid grid-cols-5 gap-10 max-md:grid-cols-2 max-lg:grid-cols-3 max-xl:grid-cols-4 max-[500]:gap-5 items-start">
         {products.map((product) => {
           const isImageLoading = imageLoadingStates[product.id] !== false;
 
           return (
-            <div key={product.id} className={"cards-wrapper"}>
-              <div className="mb-4">
-                {isImageLoading && (
-                  <div className="w-full h-40 max-lg:h-20 bg-zinc-100 rounded-md"></div>
-                )}
-                <img
-                  className={`w-full h-40 max-lg:h-32 justify-self-center object-contain ${
-                    isImageLoading ? "hidden" : "block"
-                  }`}
-                  src={product.image}
-                  alt={product.title}
-                  onLoad={() => handleImageLoad(product.id)}
-                  onError={() => handleImageError(product.id)} // Обработка ошибок
-                />
-              </div>
-              <div>
-                <div className="line-clamp-2 mb-2 h-12 text-base max-[500px]:text-sm,h-10">
-                  {product.title}
+            <LazyLoad
+              key={product.id}
+              height={370}
+              offset={100}
+              placeholder={<Loader />}
+            >
+              <div className="card">
+                <div className="mb-4">
+                  {isImageLoading && (
+                    <div className="w-full h-40 max-lg:h-20 bg-zinc-100 rounded-md"></div>
+                  )}
+                  <img
+                    className={`w-full h-40 max-lg:h-32 object-contain ${
+                      isImageLoading ? "hidden" : "block"
+                    }`}
+                    src={product.image}
+                    alt={product.title || "Product image"}
+                    onLoad={() => handleImageLoad(product.id)}
+                    onError={() => handleImageError(product.id)}
+                  />
                 </div>
-                <div className="mb-2 font-bold max-[500px]:text-sm">
-                  {product.price}$
-                </div>
-                <div className="flex items-center gap-5 mb-5">
-                  <div className="flex items-center gap-2">
-                    <StarIcon className="w-5 h-5" />
-                    <div className="text-blue-400">{product.rating.rate}</div>
+                <div>
+                  <div className="line-clamp-2 mb-2 h-12 text-base max-[500px]:text-sm">
+                    {product.title}
                   </div>
+                  <div className="mb-2 font-bold max-[500px]:text-sm">
+                    {product.price}$
+                  </div>
+                  <div className="flex items-center gap-5 mb-5">
+                    <div className="flex items-center gap-2">
+                      <StarIcon className="w-5 h-5" />
+                      <div className="text-blue-400">{product.rating.rate}</div>
+                    </div>
+                  </div>
+                  <Button />
                 </div>
-                <Button />
               </div>
-            </div>
+            </LazyLoad>
           );
         })}
       </div>
