@@ -3,32 +3,10 @@ import { CategoryPage } from "./pages/category-page.js";
 import { MainPage } from "./pages/main-page.js";
 import { Footer } from "./components/layout/footer.js";
 import { Header } from "./components/layout/header.js";
-import { useEffect, useState } from "react";
+import { useFetchCategoriesTitles } from "./hooks/useFetchCategoriesTitles.js";
 
 export function App() {
-  const [categoriesTitles, setCategoriesTitles] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    setIsLoading(true);
-    const fetchCategoriesTitles = async () => {
-      try {
-        const res = await fetch("https://fakestoreapi.com/products/categories");
-        if (!res.ok) {
-          throw new Error("Failed to fetch categories titles");
-        }
-        const data = await res.json();
-        setCategoriesTitles(data);
-      } catch (error) {
-        setError(error?.message || "Something went wrong");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchCategoriesTitles();
-  }, []);
+  const { categoriesTitles, isLoading, error } = useFetchCategoriesTitles();
 
   return (
     <BrowserRouter>
