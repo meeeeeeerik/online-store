@@ -18,6 +18,39 @@
   transition: all 1s ease-in-out;
 }
 
+.input-transition {
+  opacity: 0;
+  transform: translateY(-100px);
+  transition: all 0.3s ease;
+}
+
+.input-transition-enter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.header-buttons-container {
+  @apply flex justify-between items-center gap-3;
+}
+
+@media (max-width: 500px) {
+  .logo {
+    width: 96px;
+  }
+  .header-buttons-container {
+    gap: 4px;
+  }
+}
+
+@media (max-width: 400px) {
+  .logo {
+    width: 80px;
+  }
+  .header-buttons-container {
+    gap: 2px;
+  }
+}
+
 .is-visible {
   opacity: 1;
 }
