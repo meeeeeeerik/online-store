@@ -147,7 +147,7 @@ export function Header({ categoriesTitles, isLoading, error }) {
       <ul
         className={`
     bg-zinc-100 -z-10 h-screen w-3/4 flex flex-col items-end gap-5 
-    transition-all duration-500 absolute top-16 bottom-0 p-3 
+    transition-all duration-500 absolute top-14 bottom-0 p-3 
     ${isOpenNavbar ? "right-0" : "-right-full"}
   `}
       >
