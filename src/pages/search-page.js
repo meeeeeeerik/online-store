@@ -9,12 +9,15 @@ export function SearchPage() {
     searchParams.get("q")
   );
 
+  const title =
+    products && products.length > 0 ? "Search Results" : "Nothing Founded";
+
   return (
     <ProductList
       products={products}
       isLoading={isLoading}
       error={error}
-      title={"Search Results"}
+      title={title}
     />
   );
 }

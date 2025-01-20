@@ -49,7 +49,16 @@ export function Header({ categoriesTitles, isLoading, error }) {
   };
 
   const toggleSearch = () => {
-    setIsOpenSearch(!isOpenSearch);
+    if (isOpenSearch) {
+      setSearchValue("");
+      setIsOpenSearch(false);
+
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    } else {
+      setIsOpenSearch(true);
+    }
   };
 
   const closeNavbar = () => {
