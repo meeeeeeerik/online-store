@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: Maison Neue Book;
+  src: url("/src/ui/fonts/maison-neue-book.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
 .active {
   @apply underline;
 }
@@ -11,6 +18,28 @@
   @media (max-width: 400px) {
     width: 140px;
   }
+}
+
+.title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 40px;
+  @media (max-width: 991px) {
+    font-size: 24px;
+  }
+}
+
+.menu-list {
+  padding: 8px;
+  font-size: 24px;
+  border-radius: 6px;
+  transition: all 0.3ms;
+  @media (max-width: 991px) {
+    font-size: 20px;
+  }
+}
+.menu-list:hover {
+  @apply bg-gray-200;
 }
 
 .LazyLoad {

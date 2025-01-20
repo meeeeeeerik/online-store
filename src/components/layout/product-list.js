@@ -14,13 +14,13 @@ export function ProductList({ products, isLoading, error, title }) {
 
   return (
     <div className="container mx-auto px-5 mt-40 mb-10 max-lg:mt-28">
-      <h2 className="text-center text-3xl mb-10 max-lg:text-2xl">{title}</h2>
+      <h2 className="title">{title}</h2>
       <div className="grid grid-cols-5 gap-10 max-md:grid-cols-2 max-lg:grid-cols-3 max-xl:grid-cols-4 max-[500]:gap-5 items-start">
         {products.map((product) => {
           return (
             <LazyLoad
               key={product.id}
-              height={370}
+              height={325}
               offset={100}
               placeholder={<Loader />}
             >

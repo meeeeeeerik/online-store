@@ -8,7 +8,7 @@ export function Footer() {
   return (
     <footer className="bg-zinc-100 mt-auto pt-10 pb-5">
       <div className="container mx-auto px-5">
-        <h3 className="mb-5 text-center text-2xl">Follow us on</h3>
+        <h3 className="mb-5 text-center text-xl">Follow us on</h3>
         <ul className="flex items-center justify-center gap-4 mb-5">
           <li className="hover:scale-125 transition-all duration-300">
             <Link

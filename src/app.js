@@ -11,7 +11,7 @@ export function App() {
 
   return (
     <BrowserRouter>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen font-custom">
         <Header
           categoriesTitles={categoriesTitles}
           isLoading={isLoading}

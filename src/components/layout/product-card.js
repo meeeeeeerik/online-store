@@ -30,14 +30,12 @@ export function ProductCard({ image, title, price, rating }) {
         />
       </div>
       <div>
-        <div className="line-clamp-2 mb-2 h-12 text-base max-[500px]:text-sm">
-          {title}
-        </div>
-        <div className="mb-2 font-bold max-[500px]:text-sm">{price}$</div>
+        <div className="line-clamp-2 mb-2 h-8 text-xs">{title}</div>
+        <div className="mb-2 font-bold text-xs">{price}$</div>
         <div className="flex items-center gap-5 mb-5">
           <div className="flex items-center gap-2">
             <StarIcon className="w-5 h-5" />
-            <div className="text-blue-400">{rating}</div>
+            <div className="text-blue-400 text-xs">{rating}</div>
           </div>
         </div>
         <Button />

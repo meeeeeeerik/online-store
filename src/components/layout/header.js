@@ -76,7 +76,7 @@ export function Header({ categoriesTitles, isLoading, error }) {
   return (
     <header className="fixed top-0 right-0 left-0 bg-zinc-100">
       <div className="border-gray-300 border-b z-10">
-        <div className="container mx-auto px-5 flex justify-between items-center h-16">
+        <div className="container mx-auto px-5 flex justify-between items-center h-14">
           <Link to="/" className="mr-2">
             <Logo className="logo" />
           </Link>
@@ -131,10 +131,10 @@ export function Header({ categoriesTitles, isLoading, error }) {
         <nav className="flex justify-center container mx-auto">
           <ul className="flex flex-wrap justify-center items-center gap-5">
             {categoriesTitles.map((categoryTitle) => (
-              <li key={categoryTitle} className="p-5 max-[400px]:p-3">
+              <li key={categoryTitle} className="p-4 max-[400px]:p-3">
                 <NavLink
                   to={`products/${categoryTitle}`}
-                  className="p-2 text-lg rounded-md transition-all duration-300 hover:bg-gray-200 max-[350px]:text-base"
+                  className="p-2 text-xs rounded-md transition-all duration-300 hover:bg-gray-200 max-[350px]:text-base"
                 >
                   {categoryTitle[0].toUpperCase() + categoryTitle.slice(1)}
                 </NavLink>
@@ -146,7 +146,7 @@ export function Header({ categoriesTitles, isLoading, error }) {
 
       <ul
         className={`
-    bg-zinc-100 -z-10 h-screen w-2/3 flex flex-col items-end gap-5 
+    bg-zinc-100 -z-10 h-screen w-3/4 flex flex-col items-end gap-5 
     transition-all duration-500 absolute top-16 bottom-0 p-3 
     ${isOpenNavbar ? "right-0" : "-right-full"}
   `}
@@ -156,7 +156,7 @@ export function Header({ categoriesTitles, isLoading, error }) {
             <NavLink
               onClick={closeNavbar}
               to={`products/${categoryTitle}`}
-              className="p-2 text-lg rounded-md transition-all duration-300 hover:bg-gray-200 max-[350px]:text-base"
+              className="menu-list"
             >
               {categoryTitle[0].toUpperCase() + categoryTitle.slice(1)}
             </NavLink>
