@@ -6,7 +6,7 @@ import { ReactComponent as Tg } from "@/ui/svg/icon-telegram.svg";
 
 export function Footer() {
   return (
-    <footer className="bg-zinc-100 mt-auto pt-10 pb-5">
+    <footer className="bg-white border-t-[1px] mt-auto pt-10 pb-5">
       <div className="container mx-auto px-5">
         <h3 className="mb-5 text-center text-xl">Follow us on</h3>
         <ul className="flex items-center justify-center gap-4 mb-5">

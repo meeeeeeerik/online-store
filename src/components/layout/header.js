@@ -74,7 +74,7 @@ export function Header({ categoriesTitles, isLoading, error }) {
   }
 
   return (
-    <header className="fixed top-0 right-0 left-0 bg-zinc-100">
+    <header className="fixed top-0 right-0 left-0 bg-white">
       <div className="border-gray-300 border-b z-10">
         <div className="container mx-auto px-5 flex justify-between items-center h-14">
           <Link to="/" className="mr-2">
@@ -127,14 +127,14 @@ export function Header({ categoriesTitles, isLoading, error }) {
         </div>
       </div>
 
-      <div className="bg-zinc-100 border-b max-lg:hidden">
+      <div className="bg-white border-b max-lg:hidden">
         <nav className="flex justify-center container mx-auto">
           <ul className="flex flex-wrap justify-center items-center gap-5">
             {categoriesTitles.map((categoryTitle) => (
               <li key={categoryTitle} className="p-4 max-[400px]:p-3">
                 <NavLink
                   to={`products/${categoryTitle}`}
-                  className="p-2 text-xs rounded-md transition-all duration-300 hover:bg-gray-200 max-[350px]:text-base"
+                  className="p-2 text-xs rounded-md transition-all duration-300 hover:bg-gray-100 max-[350px]:text-base"
                 >
                   {categoryTitle[0].toUpperCase() + categoryTitle.slice(1)}
                 </NavLink>
