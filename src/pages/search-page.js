@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useSearchFetchProducts } from "@/hooks/useSearchFetchProducts";
-import { ProductList } from "@/components/layout/product-list";
+import { ProductList } from "@/components/product-list";
 
 export function SearchPage() {
   const [searchParams] = useSearchParams();

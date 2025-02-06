@@ -1,6 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { MainPage } from "./pages/main-page.js";
-import { Footer } from "./components/layout/footer.js";
 import { Header } from "./components/layout/header.js";
 import { useFetchCategoriesTitles } from "./hooks/useFetchCategoriesTitles.js";
 import { SearchPage } from "./pages/search-page.js";
@@ -26,7 +25,6 @@ export function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-        <Footer />
       </div>
     </BrowserRouter>
   );

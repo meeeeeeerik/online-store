@@ -42,7 +42,7 @@
   @apply bg-gray-200;
 }
 
-.LazyLoad {
+.lazyLoad {
   opacity: 0;
   transition: all 1s ease-in-out;
 }
@@ -60,6 +60,16 @@
 
 .header-buttons-container {
   @apply flex justify-between items-center gap-3;
+}
+
+.title-auth {
+  font-size: 40px;
+  color: #52525b;
+  text-align: center;
+  @media (max-width: 991px) {
+    font-weight: bold;
+    font-size: 28px;
+  }
 }
 
 @media (max-width: 500px) {

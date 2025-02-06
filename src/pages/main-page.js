@@ -1,5 +1,5 @@
 import { useFetchProducts } from "@/hooks/useFetchProducts";
-import { ProductList } from "@/components/layout/product-list";
+import { ProductList } from "@/components/product-list";
 
 export function MainPage() {
   const { products, isLoading, error } = useFetchProducts();
