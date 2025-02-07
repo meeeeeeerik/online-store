@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 
@@ -6,29 +6,19 @@ export const AuthProvider = ({ children }) => {
   const [userName, setUserName] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-
-    if (storedUser?.username) {
-      setUserName(storedUser.username);
-      setIsAuthenticated(true);
-    } else {
-      fetch("https://fakestoreapi.com/users/1")
-        .then((response) => response.json())
-        .then((data) => {
-          setUserName(data.username);
-          setIsAuthenticated(true);
-          localStorage.setItem(
-            "user",
-            JSON.stringify({ username: data.username })
-          );
-        })
-        .catch((error) => console.error("Error fetching user:", error));
-    }
-  }, []);
-
-  const login = async (username, password) => {
+  const checkAndLogin = async (username, password) => {
     try {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        const { username: storedUsername, password: storedPassword } =
+          JSON.parse(storedUser);
+        if (storedUsername === username && storedPassword === password) {
+          setUserName(storedUsername);
+          setIsAuthenticated(true);
+          return { message: "Logged in from localStorage" };
+        }
+      }
+
       const response = await fetch("https://fakestoreapi.com/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -40,7 +30,7 @@ export const AuthProvider = ({ children }) => {
       const data = await response.json();
       setUserName(username);
       setIsAuthenticated(true);
-      localStorage.setItem("user", JSON.stringify({ username }));
+      localStorage.setItem("user", JSON.stringify({ username, password }));
       return data;
     } catch (error) {
       console.error("Login error:", error);
@@ -62,9 +52,10 @@ export const AuthProvider = ({ children }) => {
       if (!response.ok) throw new Error("Registration failed");
 
       const data = await response.json();
+      const userData = { username, password };
       setUserName(username);
       setIsAuthenticated(true);
-      localStorage.setItem("user", JSON.stringify({ username }));
+      localStorage.setItem("user", JSON.stringify(userData));
       return data;
     } catch (error) {
       console.error("Registration error:", error);
@@ -73,14 +64,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("user");
     setUserName("");
     setIsAuthenticated(false);
   };
 
   return (
     <AuthContext.Provider
-      value={{ userName, isAuthenticated, login, register, logout }}
+      value={{ userName, isAuthenticated, checkAndLogin, register, logout }}
     >
       {children}
     </AuthContext.Provider>

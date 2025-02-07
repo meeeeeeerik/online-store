@@ -5,7 +5,7 @@ import { ReactComponent as Logo } from "@/ui/svg/logo.svg";
 import { useAuth } from "./authContext.js";
 
 export function ModalAuth({ isOpen, onClose, onToggle, type }) {
-  const { login, register } = useAuth();
+  const { checkAndLogin, register } = useAuth();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +32,7 @@ export function ModalAuth({ isOpen, onClose, onToggle, type }) {
         const response = await register(username, password);
         if (!response) throw new Error("Registration failed");
       } else if (type === "login") {
-        const response = await login(username, password);
+        const response = await checkAndLogin(username, password);
         if (!response) throw new Error("Login failed");
       }
       onClose();
