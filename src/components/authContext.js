@@ -1,24 +1,22 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [userName, setUserName] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (storedUser?.username) {
+      setUserName(storedUser.username);
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   const checkAndLogin = async (username, password) => {
     try {
-      const storedUser = localStorage.getItem("user");
-      if (storedUser) {
-        const { username: storedUsername, password: storedPassword } =
-          JSON.parse(storedUser);
-        if (storedUsername === username && storedPassword === password) {
-          setUserName(storedUsername);
-          setIsAuthenticated(true);
-          return { message: "Logged in from localStorage" };
-        }
-      }
-
       const response = await fetch("https://fakestoreapi.com/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -30,10 +28,10 @@ export const AuthProvider = ({ children }) => {
       const data = await response.json();
       setUserName(username);
       setIsAuthenticated(true);
-      localStorage.setItem("user", JSON.stringify({ username, password }));
+      localStorage.setItem("currentUser", JSON.stringify({ username }));
       return data;
     } catch (error) {
-      console.error("Login error:", error);
+      setError(error?.message || "Login error:");
       return null;
     }
   };
@@ -43,22 +41,24 @@ export const AuthProvider = ({ children }) => {
       const response = await fetch("https://fakestoreapi.com/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
+        body: JSON.stringify({ username, password }),
       });
 
       if (!response.ok) throw new Error("Registration failed");
 
       const data = await response.json();
-      const userData = { username, password };
+
+      let usersList = JSON.parse(localStorage.getItem("users")) || [];
+      usersList.push({ username, password });
+      localStorage.setItem("users", JSON.stringify(usersList));
+
       setUserName(username);
       setIsAuthenticated(true);
-      localStorage.setItem("user", JSON.stringify(userData));
+      localStorage.setItem("currentUser", JSON.stringify({ username }));
+
       return data;
     } catch (error) {
-      console.error("Registration error:", error);
+      setError(error?.message || "Registration error:");
       return null;
     }
   };
@@ -66,11 +66,19 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUserName("");
     setIsAuthenticated(false);
+    localStorage.removeItem("currentUser");
   };
 
   return (
     <AuthContext.Provider
-      value={{ userName, isAuthenticated, checkAndLogin, register, logout }}
+      value={{
+        userName,
+        isAuthenticated,
+        checkAndLogin,
+        register,
+        logout,
+        error,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -3,9 +3,10 @@ import { FormInput } from "@/ui/form-input.js";
 import signUpModalImage from "@/ui/img/signup-modal.jpg";
 import { ReactComponent as Logo } from "@/ui/svg/logo.svg";
 import { useAuth } from "./authContext.js";
+import { ErrorAuth } from "@/ui/errorAuth.js";
 
 export function ModalAuth({ isOpen, onClose, onToggle, type }) {
-  const { checkAndLogin, register } = useAuth();
+  const { checkAndLogin, register, error } = useAuth();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -17,9 +18,13 @@ export function ModalAuth({ isOpen, onClose, onToggle, type }) {
     e.preventDefault();
     const newErrors = {};
 
-    if (!email.includes("@")) newErrors.email = "Invalid email format";
-    if (password.length < 7)
-      newErrors.password = "Password must be at least 7 characters";
+    if (type === "signup") {
+      if (!email.includes("@")) newErrors.email = "Invalid email format";
+    }
+
+    if (password.length < 5)
+      newErrors.password = "Password must be at least 5 characters";
+
     if (type === "signup" && password !== repeatPassword)
       newErrors.repeatPassword = "Passwords do not match";
 
@@ -43,6 +48,10 @@ export function ModalAuth({ isOpen, onClose, onToggle, type }) {
     }
   };
 
+  if (error) {
+    return <ErrorAuth error={error} />;
+  }
+
   if (!isOpen) return null;
 
   return (
@@ -60,14 +69,17 @@ export function ModalAuth({ isOpen, onClose, onToggle, type }) {
               onSubmit={handleSubmit}
               className="w-full flex flex-col gap-y-4 mb-3"
             >
-              <FormInput
-                type="email"
-                placeholder="Email"
-                icon=""
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                hasError={!!errors.email}
-              />
+              {type === "signup" && (
+                <FormInput
+                  type="email"
+                  placeholder="Email"
+                  icon=""
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  hasError={!!errors.email}
+                />
+              )}
+
               <FormInput
                 type="text"
                 placeholder="Username"

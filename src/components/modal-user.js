@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { ModalAuth } from "./modal-auth.js";
 import { useAuth } from "./authContext.js";
+import { ErrorAuth } from "@/ui/errorAuth.js";
 
 export function ModalUser({ isOpen, setIsModalAuthOpen }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState("");
 
-  const { userName, isAuthenticated, logout } = useAuth();
+  const { userName, isAuthenticated, logout, error } = useAuth();
 
   const handleToggleModalType = (type) => {
     setModalType(type);
@@ -23,6 +24,10 @@ export function ModalUser({ isOpen, setIsModalAuthOpen }) {
     setModalType("");
     setIsModalAuthOpen(false);
   };
+
+  if (error) {
+    return <ErrorAuth error={error} />;
+  }
 
   if (!isOpen) return null;
 

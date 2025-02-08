@@ -112,7 +112,7 @@ export function Header({ categoriesTitles, isLoading, error }) {
     <>
       <header
         onMouseLeave={handleCloseModalUser}
-        className="fixed top-0 right-0 left-0 bg-white"
+        className="fixed top-0 right-0 left-0 bg-white z-10"
       >
         <div className="border-gray-300 border-b z-10">
           <div className="container mx-auto px-5 flex justify-between items-center h-14">
