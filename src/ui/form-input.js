@@ -27,7 +27,7 @@ export function FormInput({
         required
         value={value}
         onChange={onChange}
-        minLength={type === "password" ? 7 : ""}
+        minLength={type === "password" ? 5 : ""}
       />
       {icon && (
         <button onClick={togglePasswordVisibility} type="button">

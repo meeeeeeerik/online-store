@@ -8,7 +8,7 @@ export function ErrorAuth({ error }) {
     return () => clearTimeout(timer);
   }, []);
 
-  if (!isVisible) return null;
+  if (!error || !isVisible) return null;
 
   return (
     <div

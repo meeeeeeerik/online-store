@@ -17,6 +17,8 @@ export const AuthProvider = ({ children }) => {
 
   const checkAndLogin = async (username, password) => {
     try {
+      setError(""); // Очистка старых ошибок перед новым запросом
+
       const response = await fetch("https://fakestoreapi.com/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -29,15 +31,18 @@ export const AuthProvider = ({ children }) => {
       setUserName(username);
       setIsAuthenticated(true);
       localStorage.setItem("currentUser", JSON.stringify({ username }));
+
       return data;
     } catch (error) {
-      setError(error?.message || "Login error:");
+      setError(error?.message || "Login error:"); // Устанавливаем ошибку
       return null;
     }
   };
 
   const register = async (username, password) => {
     try {
+      setError(""); // Очистка старых ошибок перед новым запросом
+
       const response = await fetch("https://fakestoreapi.com/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -58,8 +63,53 @@ export const AuthProvider = ({ children }) => {
 
       return data;
     } catch (error) {
-      setError(error?.message || "Registration error:");
+      setError(error?.message || "Registration error:"); // Устанавливаем ошибку
       return null;
+    }
+  };
+
+  const handleAuth = async (
+    type,
+    username,
+    password,
+    repeatPassword,
+    email
+  ) => {
+    const newErrors = {};
+
+    if (type === "signup") {
+      if (!email.includes("@")) newErrors.email = "Invalid email format";
+    }
+
+    if (password.length < 5)
+      newErrors.password = "Password must be at least 5 characters";
+
+    if (type === "signup" && password !== repeatPassword)
+      newErrors.repeatPassword = "Passwords do not match";
+
+    if (Object.keys(newErrors).length > 0) {
+      setError(Object.values(newErrors).join(". ")); // Устанавливаем ошибки
+      return false;
+    }
+
+    try {
+      setError(""); // Очистка старых ошибок перед новым запросом
+
+      let response = null;
+      if (type === "signup") {
+        response = await register(username, password);
+      } else if (type === "login") {
+        response = await checkAndLogin(username, password);
+      }
+
+      if (!response) {
+        return false; // Не закрываем модалку, если логин/регистрация не удалась
+      }
+
+      return true; // Успешный вход/регистрация
+    } catch (error) {
+      setError(error?.message || "Authentication error:");
+      return false;
     }
   };
 
@@ -78,6 +128,7 @@ export const AuthProvider = ({ children }) => {
         register,
         logout,
         error,
+        handleAuth,
       }}
     >
       {children}

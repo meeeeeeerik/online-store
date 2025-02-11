@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormInput } from "@/ui/form-input.js";
 import signUpModalImage from "@/ui/img/signup-modal.jpg";
 import { ReactComponent as Logo } from "@/ui/svg/logo.svg";
@@ -6,7 +6,7 @@ import { useAuth } from "./authContext.js";
 import { ErrorAuth } from "@/ui/errorAuth.js";
 
 export function ModalAuth({ isOpen, onClose, onToggle, type }) {
-  const { checkAndLogin, register, error } = useAuth();
+  const { error, handleAuth } = useAuth();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -14,37 +14,32 @@ export function ModalAuth({ isOpen, onClose, onToggle, type }) {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    if (type === "signup" && repeatPassword === password) {
+      setErrors((prevErrors) => {
+        const newErrors = { ...prevErrors };
+        delete newErrors.repeatPassword;
+        return newErrors;
+      });
+    }
+  }, [repeatPassword, password, type]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newErrors = {};
-
-    if (type === "signup") {
-      if (!email.includes("@")) newErrors.email = "Invalid email format";
-    }
-
-    if (password.length < 5)
-      newErrors.password = "Password must be at least 5 characters";
-
-    if (type === "signup" && password !== repeatPassword)
-      newErrors.repeatPassword = "Passwords do not match";
-
-    setErrors(newErrors);
-    if (Object.keys(newErrors).length > 0) return;
-
     setIsLoading(true);
-    try {
-      if (type === "signup") {
-        const response = await register(username, password);
-        if (!response) throw new Error("Registration failed");
-      } else if (type === "login") {
-        const response = await checkAndLogin(username, password);
-        if (!response) throw new Error("Login failed");
-      }
-      onClose();
-    } catch (error) {
-      console.error(error.message);
-    } finally {
-      setIsLoading(false);
+
+    const success = await handleAuth(
+      type,
+      username,
+      password,
+      repeatPassword,
+      email
+    );
+
+    setIsLoading(false);
+
+    if (success) {
+      onClose(); // Закрываем модалку только при успешной авторизации
     }
   };
 
