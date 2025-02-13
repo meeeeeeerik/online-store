@@ -16,9 +16,9 @@ export function ProductCard({ image, title, price, rating }) {
   return (
     <div className="card">
       <div className="mb-4">
-        {isImageLoading && (
+        {isImageLoading ? (
           <div className="w-full h-40 max-lg:h-20 bg-zinc-100 rounded-md"></div>
-        )}
+        ) : null}
         <img
           className={`w-full h-40 max-lg:h-32 object-contain ${
             isImageLoading ? "hidden" : "block"

@@ -10,7 +10,8 @@ import { Error } from "@/ui/error.js";
 import { Input } from "@/ui/input";
 import { ModalUser } from "../modal-user.js";
 import { ModalAuth } from "../modal-auth.js";
-import { useAuth } from "../authContext.js";
+import { MobileMenu } from "../mobile-menu.js";
+import { AnimatePresence } from "framer-motion";
 
 export function Header({ categoriesTitles, isLoading, error }) {
   const navigate = useNavigate();
@@ -20,23 +21,18 @@ export function Header({ categoriesTitles, isLoading, error }) {
   const [searchValue, setSearchValue] = useState("");
   const [isModalUserOpen, setIsModalUserOpen] = useState(false);
   const [isModalAuthOpen, setIsModalAuthOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState("");
-
-  const { userName, isAuthenticated, logout } = useAuth();
+  const [modalType, setModalType] = useState(null);
 
   const handleToggleModalType = (type) => {
     setModalType(type);
   };
 
-  const handleOpenModal = (type) => {
+  const handleOpenModalAuth = (type) => {
     setModalType(type);
-    setIsModalOpen(true);
     setIsModalAuthOpen(true);
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false);
     setModalType("");
     setIsModalAuthOpen(false);
   };
@@ -45,7 +41,7 @@ export function Header({ categoriesTitles, isLoading, error }) {
     setIsModalUserOpen((prevState) => !prevState);
   };
 
-  const handleCloseModalUser = () => {
+  const onCloseModalUserMouseLeave = () => {
     if (!isModalAuthOpen) {
       setIsModalUserOpen(false);
     }
@@ -111,7 +107,7 @@ export function Header({ categoriesTitles, isLoading, error }) {
   return (
     <>
       <header
-        onMouseLeave={handleCloseModalUser}
+        onMouseLeave={onCloseModalUserMouseLeave}
         className="fixed top-0 right-0 left-0 bg-white z-10"
       >
         <div className="border-gray-300 border-b z-10">
@@ -123,7 +119,7 @@ export function Header({ categoriesTitles, isLoading, error }) {
             <div className="header-buttons-container">
               <div
                 className={`input-transition ${
-                  isOpenSearch && "input-transition-enter"
+                  isOpenSearch ? "input-transition-enter" : ""
                 }`}
               >
                 <Input value={searchValue} onChange={onSearchInputChange} />
@@ -183,77 +179,28 @@ export function Header({ categoriesTitles, isLoading, error }) {
           </nav>
         </div>
 
-        <div
-          className={`
-    bg-zinc-50 -z-10 min-h-screen overflow-y-auto w-3/4 flex flex-col items-end 
-    transition-all duration-500 absolute top-14 bottom-0 p-3 pb-16 lg:hidden
-    ${isOpenNavbar ? "right-0" : "-right-full"}
-  `}
-        >
-          {categoriesTitles.map((categoryTitle) => (
-            <li key={categoryTitle} className="p-5 max-[400px]:p-3 list-none">
-              <NavLink
-                onClick={closeNavbar}
-                to={`products/${categoryTitle}`}
-                className="menu-list"
-              >
-                {categoryTitle[0].toUpperCase() + categoryTitle.slice(1)}
-              </NavLink>
-            </li>
-          ))}
-          <hr className="border-zinc-300 border-y-[1px] w-full mb-5" />
-          <div className="flex flex-col items-end">
-            <h2 className="text-[10px] uppercase tracking-widest w-[200px] mb-3 text-right">
-              Welcome {isAuthenticated && userName ? userName : "Guest"}
-            </h2>
-            {isAuthenticated ? (
-              <button
-                onClick={logout}
-                className="text-zinc-400 font-thin text-sm tracking-widest hover:text-black"
-              >
-                Log Out
-              </button>
-            ) : (
-              <>
-                <button
-                  onClick={() => {
-                    handleOpenModal("login");
-                    closeNavbar();
-                  }}
-                  className="text-zinc-800 font-thin text-sm tracking-widest mb-4 hover:text-black"
-                >
-                  Log In
-                </button>
+        <MobileMenu
+          isOpenNavbar={isOpenNavbar}
+          categoriesTitles={categoriesTitles}
+          closeNavbar={closeNavbar}
+          handleOpenModalAuth={handleOpenModalAuth}
+        />
 
-                <button
-                  onClick={() => {
-                    handleOpenModal("signup");
-                    closeNavbar();
-                  }}
-                  className="text-zinc-800 font-thin text-sm tracking-widest hover:text-black"
-                >
-                  Sign Up
-                </button>
-              </>
-            )}
+        <AnimatePresence>
+          {isModalAuthOpen ? (
+            <ModalAuth
+              onClose={handleCloseModal}
+              type={modalType}
+              onToggle={handleToggleModalType}
+            />
+          ) : null}
+        </AnimatePresence>
+
+        {isModalUserOpen ? (
+          <div className="container relative mx-auto">
+            <ModalUser handleOpenModalAuth={handleOpenModalAuth} />
           </div>
-        </div>
-
-        {isModalOpen && (
-          <ModalAuth
-            isOpen={isModalOpen}
-            onClose={handleCloseModal}
-            type={modalType}
-            onToggle={handleToggleModalType}
-          />
-        )}
-
-        <div className="container relative mx-auto">
-          <ModalUser
-            isOpen={isModalUserOpen}
-            setIsModalAuthOpen={setIsModalAuthOpen}
-          />
-        </div>
+        ) : null}
       </header>
     </>
   );

@@ -105,20 +105,6 @@
   animation: spinner-c7wet2 1s infinite linear;
 }
 
-.openError {
-  animation: openError 0.5s ease forwards;
-}
-
-@keyframes openError {
-  0% {
-    transform: translateX(calc(100% + 20px));
-  }
-
-  100% {
-    transform: translateX(0);
-  }
-}
-
 @keyframes spinner-c7wet2 {
   100% {
     transform: rotate(1turn);
