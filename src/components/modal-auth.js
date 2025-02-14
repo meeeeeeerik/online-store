@@ -51,8 +51,13 @@ export function ModalAuth({ onClose, onToggle, type }) {
       onClose();
     } catch (err) {
       setErrorAuth(err.message);
+      setEmail("");
+      setUsername("");
+      setPassword("");
+      setRepeatPassword("");
     } finally {
       setIsLoading(false);
+      setHasAttemptedSubmit(false);
     }
   };
 
