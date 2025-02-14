@@ -51,14 +51,23 @@ export function ModalAuth({ onClose, onToggle, type }) {
       onClose();
     } catch (err) {
       setErrorAuth(err.message);
-      setEmail("");
-      setUsername("");
-      setPassword("");
-      setRepeatPassword("");
     } finally {
       setIsLoading(false);
       setHasAttemptedSubmit(false);
     }
+  };
+
+  const handleToggleForms = (newType) => {
+    if (errorAuth) {
+      setEmail("");
+      setUsername("");
+      setPassword("");
+      setRepeatPassword("");
+      setErrorAuth("");
+      setErrorPassword("");
+      setHasAttemptedSubmit(false);
+    }
+    onToggle(newType);
   };
 
   return (
@@ -154,7 +163,7 @@ export function ModalAuth({ onClose, onToggle, type }) {
                   <>
                     Don’t have an account?{" "}
                     <button
-                      onClick={() => onToggle("signup")}
+                      onClick={() => handleToggleForms("signup")}
                       className="mx-2 underline"
                     >
                       Sign up
@@ -164,7 +173,7 @@ export function ModalAuth({ onClose, onToggle, type }) {
                   <>
                     Already have an account?{" "}
                     <button
-                      onClick={() => onToggle("login")}
+                      onClick={() => handleToggleForms("login")}
                       className="mx-2 underline"
                     >
                       Log In
